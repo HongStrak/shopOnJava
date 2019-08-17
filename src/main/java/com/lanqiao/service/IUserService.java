@@ -18,5 +18,17 @@ public interface IUserService {
 	 * @param address 地址信息bean
 	 */
 	public void insertAddress(Address address);
+	
+	/**
+	 * 	根据地址id修改用户地址信息
+	 * @param id 地址id
+	 */
+	public void updateAddress(Address address);
+	
+	/**
+	 * 	根据地址id删除地址
+	 * @param id 地址id
+	 */
+	public void deleteAddressById(Integer id);
 
 }

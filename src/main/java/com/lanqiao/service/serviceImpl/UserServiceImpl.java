@@ -25,6 +25,16 @@ public class UserServiceImpl implements IUserService{
 	public void insertAddress(Address address) {
 		userMapper.insertAddress(address);
 	}
+
+	@Override
+	public void updateAddress(Address address) {
+		userMapper.updateAddress(address);
+	}
+
+	@Override
+	public void deleteAddressById(Integer id) {
+		userMapper.deleteAddressById(id);
+	}
 	
 	
 	

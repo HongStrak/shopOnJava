@@ -2,6 +2,10 @@ package com.lanqiao.domain;
 
 /** 地址表Javabean */
 public class Address {
+	
+	/**地址id*/
+	private Integer id;
+	
 	/** 用户id */
 	private Integer uid;
 	/** 收货地址 */
@@ -14,7 +18,18 @@ public class Address {
 
 	}
 
-	
+
+	public Integer getId() {
+		return id;
+	}
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
 
 	public Integer getUid() {
 		return uid;
@@ -45,10 +60,9 @@ public class Address {
 	}
 
 
-
 	@Override
 	public String toString() {
-		return "Address [uid=" + uid + ", address=" + address + ", isDefaultAddr=" + isDefaultAddr + "]";
+		return "Address [id=" + id + ", uid=" + uid + ", address=" + address + ", isDefaultAddr=" + isDefaultAddr + "]";
 	}
 
 	

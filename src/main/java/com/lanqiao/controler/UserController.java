@@ -31,5 +31,14 @@ public class UserController {
 		userService.insertAddress(address);
 	}
 	
+	@PostMapping("/address/update")
+	private void updateAddress(Address address) {
+		userService.updateAddress(address);
+	}
+	
+	@PostMapping("/address/delete")
+	private void insertAddress(Integer id) {
+		userService.deleteAddressById(id);
+	}
 	
 }

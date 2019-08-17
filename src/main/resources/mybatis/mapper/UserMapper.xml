@@ -4,13 +4,14 @@
 <mapper namespace="com.lanqiao.mapper.UserMapper">
 	
 	 <resultMap type="Address" id="AddressResult">
+	  	<result property="id"    column="id"    />
         <result property="uid"    column="uid"    />
         <result property="address"    column="address"    />
         <result property="isDefaultAddr"    column="is_default_addr"    />
     </resultMap>
 	
 	<select id="selectAddressByUid"  resultMap="AddressResult">
-		select uid,address,is_default_addr from tb_address where uid = #{uid}
+		select id,uid,address,is_default_addr from tb_address where uid = #{uid}
 	</select>
 	
 	<insert id="insertAddress" parameterType="Address">
@@ -27,5 +28,18 @@
 		</trim>
 	</insert>
 	
+	
+	 <update id="updateAddress" parameterType="Address">
+        update tb_address 
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="address != null  and address != ''  ">address = #{address},</if>
+            <if test="isDefaultAddr != null  ">is_default_addr = #{isDefaultAddr},</if>
+        </trim>
+        where id = #{id}
+    </update>
+    
+    <delete id="deleteAddressById" >
+        delete from tb_address where id =#{id}    
+    </delete>
 	
 </mapper>
