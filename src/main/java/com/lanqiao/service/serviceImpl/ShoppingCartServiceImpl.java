@@ -26,8 +26,13 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 	}
 
 	@Override
-	public List<ShoppingCart> selectShoppingCartByUid(Integer id) {
-		return shoppingCartMapper.selectShoppingCartByUid(id);
+	public List<ShoppingCart> selectShoppingCartByUid(Integer uid) {
+		return shoppingCartMapper.selectShoppingCartByUid(uid);
+	}
+
+	@Override
+	public void insertShoppingCart(ShoppingCart shoppingCart) {
+		shoppingCartMapper.insertShoppingCart(shoppingCart);
 	}
 
 	

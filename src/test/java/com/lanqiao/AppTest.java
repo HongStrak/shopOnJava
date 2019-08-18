@@ -26,25 +26,14 @@ public class AppTest {
     
 	@Test
 	public void test1() {
-		/*Address address = new Address();
-		address.setUid(1);
-		address.setAddress("河南省商丘市民权县城关村");
-		address.setIsDefaultAddr("1");
-		userMapper.insertAddress(address);*/
-		
-		/*List<Address> list = userMapper.selectAddressByUid(1);
-		for (Address address : list) {
-			System.out.println(address);
-			
-		}*/
-		
-		List<ShoppingCart> list = shoppingCartMapper.selectShoppingCartByUid(1);
-		System.out.println(list);
+		ShoppingCart s = new ShoppingCart();
+		s.setGid(2);
+		s.setUid(2);
+		s.setTotal(4);
+		shoppingCartMapper.insertShoppingCart(s);
+	
 		
 	}
 	
-	@Test
-	public void test2(){
-		
-	}
+	
 }
