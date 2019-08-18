@@ -1,0 +1,6 @@
+##ignore file##
+
+/target/
+/src/test/
+.project
+.settings
