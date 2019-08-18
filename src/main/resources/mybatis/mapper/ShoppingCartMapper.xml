@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lanqiao.mapper.CommodityMapper">
+<mapper namespace="com.lanqiao.mapper.ShoppingCartMapper">
 	
 	 <resultMap type="ShoppingCart" id="ShoppingCartResult">
 	  	<result property="gid"    column="gid"    />
         <result property="uid"    column="uid"    />
         <result property="total"    column="total"    />
-     
+     	<association property="commodity" javaType="Commodity" resultMap="CommodityResult">
+		</association>
     </resultMap>
+    
+    <resultMap type="Commodity" id="CommodityResult">
+	  	<result property="gid"    column="gid"    />
+        <result property="gname"    column="gname"    />
+        <result property="price"    column="price"    />
+        <result property="stock"    column="stock"    />
+        <collection property="images" ofType="java.lang.String">
+        	<result column="image" />
+		</collection>
+    </resultMap>
+    
+    <select id="selectShoppingCartByUid" resultMap="ShoppingCartResult">
+    	select  t.uid,t.gid,t.gname,t.price,t.stock,t.total,i.image from 
+    	(select s.uid,c.gid,c.gname,c.price,c.stock,s.total from 
+    	tb_commodty c,tb_shoppingcart s 
+    	where c.gid = s.gid and s.uid = #{id})
+    	 t left join tb_image i on t.gid = i.gid
+    </select>
+    
     
 	 <update id="updateShoppingCart" parameterType="ShoppingCart">
         update tb_shoppingcart 
         <trim prefix="SET" suffixOverrides=",">
             <if test="total != null  and total != '' ">total = #{total},</if>
         </trim>
-        where gid = #{gid},uid=#{uid}
+        where gid = #{gid} and uid=#{uid}
     </update>
     
     <delete id="deleteShoppingCart" parameterType="ShoppingCart" >
-        delete from tb_shoppingcart where uid =#{uid},gid=#{gid}    
+        delete from tb_shoppingcart where uid =#{uid} and gid=#{gid}    
     </delete>
     
     

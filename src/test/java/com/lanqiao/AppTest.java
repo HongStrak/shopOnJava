@@ -23,6 +23,7 @@ public class AppTest {
     @Autowired
 	private ShoppingCartMapper shoppingCartMapper;
 	
+    
 	@Test
 	public void test1() {
 		/*Address address = new Address();
@@ -31,11 +32,14 @@ public class AppTest {
 		address.setIsDefaultAddr("1");
 		userMapper.insertAddress(address);*/
 		
-		List<Address> list = userMapper.selectAddressByUid(1);
+		/*List<Address> list = userMapper.selectAddressByUid(1);
 		for (Address address : list) {
 			System.out.println(address);
 			
-		}
+		}*/
+		
+		List<ShoppingCart> list = shoppingCartMapper.selectShoppingCartByUid(1);
+		System.out.println(list);
 		
 	}
 	
