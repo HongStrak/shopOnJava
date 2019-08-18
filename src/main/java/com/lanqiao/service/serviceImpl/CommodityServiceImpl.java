@@ -28,9 +28,9 @@ public class CommodityServiceImpl implements ICommodityService{
 	}
 
 	@Override
-	public List<Commodity> selectCommodity(Commodity commodity) {
+	public Commodity selectCommodityById(Integer gid) {
 		// TODO Auto-generated method stub
-		return commodityMapper.selectCommodity(commodity);
+		return commodityMapper.selectCommodityById(gid);
 	}
 
 	@Override

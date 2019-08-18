@@ -12,8 +12,41 @@ public class Commodity {
 	private Double price;
 	/* 库存 */
 	private Integer stock;
+	//月销售量
+	private Integer mouthlySales;
+	//销售总量
+	private Integer totalSales;
+	//总评价数
+	private Integer evaluationNum;
+
+	public Integer getMouthlySales() {
+		return mouthlySales;
+	}
+
+	public void setMouthlySales(Integer mouthlySales) {
+		this.mouthlySales = mouthlySales;
+	}
+
+	public Integer getTotalSales() {
+		return totalSales;
+	}
+
+	public void setTotalSales(Integer totalSales) {
+		this.totalSales = totalSales;
+	}
+
+	public Integer getEvaluationNum() {
+		return evaluationNum;
+	}
+
+	public void setEvaluationNum(Integer evaluationNum) {
+		this.evaluationNum = evaluationNum;
+	}
 
 	private List<String> images;
+	
+	
+	
 
 	public Commodity() {
 		super();

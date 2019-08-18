@@ -8,12 +8,18 @@
         <result property="gname"    column="gname"    />
         <result property="price"    column="price"    />
         <result property="stock"    column="stock"    />
+        <result property="mouthlySales"    column="mouthlySales"    />
+        <result property="totalSales"    column="totalSales"    />
+        <result property="evaluationNum"    column="evaluationNum"    />
     </resultMap>
 	
-<!-- 	
-	<select id="selectCommodity" parameterMap="CommodityResult">
-	  select gid,gname,price,stock from tb_commodity where gid=#{gid},gname=#{gname},price=#{price},stock=#{stock}
+	<select id="selectCommodityById" parameterType="int" resultMap="CommodityResult" >
+	  select gid,gname,price,stock,mouthlySales,totalSales,evaluationNum
+	   from tb_commodity where gid=#{gid}
 	</select>
+	
+<!-- 	
+	
 	
 	<delect id="delectCommodity" parameterMap="CommodityResult">
 	  delect from tb_commodity where gid=#{gid}

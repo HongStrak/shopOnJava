@@ -10,7 +10,9 @@ public interface ICommodityService {
 	
 	public void addCommodity(Integer gid);
 	
-	List<Commodity> selectCommodity(Commodity commodity);
+	
 	
 	public void updateCommodity(Integer gid);
+
+	public Commodity selectCommodityById(Integer gid);
 }

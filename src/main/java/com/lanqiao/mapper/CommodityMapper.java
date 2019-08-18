@@ -14,7 +14,7 @@ public interface CommodityMapper {
 	
 	public void addCommodity(Integer gid);
 	
-	List<Commodity> selectCommodity(Commodity commodity);
+	public Commodity selectCommodityById(Integer gid);
 	
 	public void updateCommodity(Integer gid);
 
