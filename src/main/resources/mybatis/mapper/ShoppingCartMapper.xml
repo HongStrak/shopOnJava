@@ -24,7 +24,7 @@
     <select id="selectShoppingCartByUid" resultMap="ShoppingCartResult">
     	select  t.uid,t.gid,t.gname,t.price,t.stock,t.total,i.image from 
     	(select s.uid,c.gid,c.gname,c.price,c.stock,s.total from 
-    	tb_commodty c,tb_shoppingcart s 
+    	tb_commodity c,tb_shoppingcart s 
     	where c.gid = s.gid and s.uid = #{uid})
     	 t left join tb_image i on t.gid = i.gid
     </select>

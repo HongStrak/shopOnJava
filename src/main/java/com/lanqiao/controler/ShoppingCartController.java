@@ -1,5 +1,7 @@
 package com.lanqiao.controler;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +29,16 @@ public class ShoppingCartController {
 		shoppingCartService.deleteShoppingCart(shoppingCart);
 	}
 	
-	@GetMapping("/select")
+	@PostMapping("/select")
 	@ResponseBody
-	public void selectShoppingCartByUid(Integer uid){
-		shoppingCartService.selectShoppingCartByUid(uid);
+	public List<ShoppingCart> selectShoppingCartByUid(Integer uid){
+		return shoppingCartService.selectShoppingCartByUid(uid);
 	}
 	
-
 	
+	@GetMapping("/insert")
+	public void insertShoppingCart(ShoppingCart shoppingCart) {
+		shoppingCartService.insertShoppingCart(shoppingCart);
+	}
+
 }

@@ -26,12 +26,8 @@ public class AppTest {
     
 	@Test
 	public void test1() {
-		ShoppingCart s = new ShoppingCart();
-		s.setGid(2);
-		s.setUid(2);
-		s.setTotal(4);
-		shoppingCartMapper.insertShoppingCart(s);
-	
+		List<ShoppingCart> list = shoppingCartMapper.selectShoppingCartByUid(1);
+		System.out.println(list);
 		
 	}
 	
