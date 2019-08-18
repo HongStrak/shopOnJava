@@ -2,6 +2,7 @@ package com.lanqiao.controler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,9 +27,12 @@ public class ShoppingCartController {
 		shoppingCartService.deleteShoppingCart(shoppingCart);
 	}
 	
-	@PostMapping("/select")
+	@GetMapping("/select")
 	@ResponseBody
 	public void selectShoppingCartByUid(Integer uid){
 		shoppingCartService.selectShoppingCartByUid(uid);
 	}
+	
+
+	
 }
