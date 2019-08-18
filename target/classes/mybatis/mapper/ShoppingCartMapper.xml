@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.mapper.CommodityMapper">
+	
+	 <resultMap type="ShoppingCart" id="ShoppingCartResult">
+	  	<result property="gid"    column="gid"    />
+        <result property="uid"    column="uid"    />
+        <result property="total"    column="total"    />
+     
+    </resultMap>
+    
+	 <update id="updateShoppingCart" parameterType="ShoppingCart">
+        update tb_shoppingcart 
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="total != null  and total != '' ">total = #{total},</if>
+        </trim>
+        where gid = #{gid},uid=#{uid}
+    </update>
+    
+    <delete id="deleteShoppingCart" parameterType="ShoppingCart" >
+        delete from tb_shoppingcart where uid =#{uid},gid=#{gid}    
+    </delete>
+    
+    
+    
+ </mapper>

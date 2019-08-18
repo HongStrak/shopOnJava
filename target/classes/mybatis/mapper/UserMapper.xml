@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.mapper.UserMapper">
+	
+	 <resultMap type="Address" id="AddressResult">
+	  	<result property="id"    column="id"    />
+        <result property="uid"    column="uid"    />
+        <result property="address"    column="address"    />
+        <result property="isDefaultAddr"    column="is_default_addr"    />
+    </resultMap>
+	
+	<select id="selectAddressByUid"  resultMap="AddressResult">
+		select id,uid,address,is_default_addr from tb_address where uid = #{uid}
+	</select>
+	
+	<insert id="insertAddress" parameterType="Address">
+		insert into tb_address
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uid != null  ">uid,</if>
+			<if test="address != null  and address != ''  ">address,</if>
+			<if test="isDefaultAddr != null and isDefaultAddr !='' ">is_default_addr,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uid != null  ">#{uid},</if>
+			<if test="address != null  and address != ''  ">#{address},</if>
+			<if test="isDefaultAddr != null and isDefaultAddr !='' ">#{isDefaultAddr},</if>
+		</trim>
+	</insert>
+	
+	
+	 <update id="updateAddress" parameterType="Address">
+        update tb_address 
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="address != null  and address != ''  ">address = #{address},</if>
+            <if test="isDefaultAddr != null  ">is_default_addr = #{isDefaultAddr},</if>
+        </trim>
+        where id = #{id}
+    </update>
+    
+    <delete id="deleteAddressById" >
+        delete from tb_address where id =#{id}    
+    </delete>
+	
+</mapper>
