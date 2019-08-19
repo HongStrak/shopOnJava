@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.lanqiao.domain.Address;
+import com.lanqiao.domain.User;
 
 @Mapper
 public interface UserMapper {
@@ -34,5 +35,11 @@ public interface UserMapper {
 	 * @param id 地址id
 	 */
 	public void deleteAddressById(Integer id);
+	
+	
+	//通过手机号查询
+	public User selectUserByPhone(String phone);
+	//通过手机号添加
+	public void insertUserByPhone(String phone);
 	
 }

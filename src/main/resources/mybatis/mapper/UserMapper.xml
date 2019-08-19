@@ -9,6 +9,15 @@
         <result property="address"    column="address"    />
         <result property="isDefaultAddr"    column="is_default_addr"    />
     </resultMap>
+    <resultMap type="User" id="UserResultMap">
+	  	<result property="uid"    column="uid"    />
+        <result property="username"    column="username"    />
+        <result property="realname"    column="realname"    />
+        <result property="sex"    column="sex"    />
+        <result property="password"    column="password"/>
+        <result property="phone"    column="phone"/>
+        <result property="isSell"    column="isSell"/>
+    </resultMap>
 	
 	<select id="selectAddressByUid"  resultMap="AddressResult">
 		select id,uid,address,is_default_addr from tb_address where uid = #{uid}
@@ -38,8 +47,19 @@
         where id = #{id}
     </update>
     
+ 	 
     <delete id="deleteAddressById" >
         delete from tb_address where id =#{id}    
     </delete>
+    
+    <!--   通过手机号查用户 -->
+    <select id="selectUserByPhone" parameterType="String" resultMap="UserResultMap">
+		select uid,username,realname,sex,password,phone,isSell from tb_user where phone = #{phone}
+	</select>
 	
+	
+	
+	<insert id="insertUserByPhone" parameterType="String">
+		insert into tb_user(phone) values(#{phone})
+	</insert>
 </mapper>

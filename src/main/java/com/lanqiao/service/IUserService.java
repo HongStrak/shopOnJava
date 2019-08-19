@@ -3,6 +3,7 @@ package com.lanqiao.service;
 import java.util.List;
 
 import com.lanqiao.domain.Address;
+import com.lanqiao.domain.User;
 
 public interface IUserService {
 	
@@ -30,5 +31,10 @@ public interface IUserService {
 	 * @param id 地址id
 	 */
 	public void deleteAddressById(Integer id);
+	
+	
+	public User selectUserByPhone(String phone);
+	
+	public void insertUserByPhone(String phone);
 
 }

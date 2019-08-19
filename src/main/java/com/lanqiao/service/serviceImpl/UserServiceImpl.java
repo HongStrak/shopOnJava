@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lanqiao.domain.Address;
+import com.lanqiao.domain.User;
 import com.lanqiao.mapper.UserMapper;
 import com.lanqiao.service.IUserService;
 
@@ -34,6 +35,18 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public void deleteAddressById(Integer id) {
 		userMapper.deleteAddressById(id);
+	}
+
+	@Override
+	public User selectUserByPhone(String phone) {
+		User user = userMapper.selectUserByPhone(phone);
+		return user;
+	}
+
+	@Override
+	public void insertUserByPhone(String phone) {
+		userMapper.insertUserByPhone(phone);
+		
 	}
 	
 	
