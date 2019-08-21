@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.mapper.JayceMapper">
+	
+	 
+    <resultMap type="Commodity" id="CommodityResult">
+	  	<result property="gid"    column="gid"    />
+        <result property="gname"    column="gname"    />
+        <result property="price"    column="price"    />
+        <result property="stock"    column="stock"    />
+        <result property="mouthlySales"    column="mouthlySales"    />
+        <result property="totalSales"    column="totalSales"    />
+        <result property="evaluationNum"    column="evaluationNum"    />
+    </resultMap>
+	
+	
+    
+    <!--   通过手机号查用户 -->
+    <select id="HotSell" parameterType="int" resultMap="CommodityResult" >
+	  select gid,gname,price,stock,mouthlySales,totalSales,evaluationNum
+	   from tb_commodity order by totalsales desc limit 0,#{num}
+	</select>
+	
+	
+	
+	
+</mapper>

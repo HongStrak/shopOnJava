@@ -1,12 +1,12 @@
 package com.lanqiao.controler;
 
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,19 +15,13 @@ import com.lanqiao.domain.User;
 import com.lanqiao.mapper.CommodityMapper;
 import com.lanqiao.service.IUserService;
 import com.lanqiao.service.serviceImpl.Ijayce;
-import com.aliyuncs.CommonRequest;
-import com.aliyuncs.CommonResponse;
-import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.IAcsClient;
-import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.exceptions.ServerException;
-import com.aliyuncs.http.MethodType;
-import com.aliyuncs.profile.DefaultProfile;
 @RestController
 @CrossOrigin
 @RequestMapping("/introduction")
 public class IntroductionController {
 
+	private String code;
+	
 	@Autowired
 	private CommodityMapper commoditys;
 	
@@ -44,22 +38,35 @@ public class IntroductionController {
 	}
 	
 	
-	//创建用户
+	//创建用户或者登陆
 	@GetMapping("/fun02")
-	public User fun02(String phone){
+	public String fun02(String phone,String mess){
 		User user = userservice.selectUserByPhone(phone);
 		if(user==null){
 			userservice.insertUserByPhone(phone);
 			System.out.println("已创建用户");
-			fun02(phone);
+			fun02(phone,mess);
 		}
-		return user;
+		if(code.equals(mess)&&mess!=null&&mess!=""){
+			System.out.println(code+":::"+mess);
+			return "true";
+		}
+		return "false";
 	}
 	
 	//获取验证码
 	@GetMapping("/fun03")
 	public String fun03(String phone){
-		String code = jayce.SendRandomCode(phone);
-		return code;
+		String code = jayce.randomCode();
+		this.code = code;
+		System.out.println(code);
+		String data = jayce.SendRandomCode(phone,code);
+		return data;
+	}
+	
+	@GetMapping("/fun04")  //获取热销的产品
+	public List<Commodity> fun04(String phone){
+		
+		return jayce.HotSell(5);
 	}
 }
