@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -65,8 +66,14 @@ public class IntroductionController {
 	}
 	
 	@GetMapping("/fun04")  //获取热销的产品
-	public List<Commodity> fun04(String phone){
+	public List<Commodity> fun04(){
 		
 		return jayce.HotSell(5);
+	}
+	
+	@PostMapping("/fun05")
+	public List<Commodity> fun05(String gname){
+		List<Commodity> l = jayce.SearchByName(gname);
+		return l;
 	}
 }

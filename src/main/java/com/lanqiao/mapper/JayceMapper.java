@@ -10,4 +10,6 @@ import com.lanqiao.domain.Commodity;
 public interface JayceMapper {
 
 	public List<Commodity> HotSell(Integer num);
+	
+	public List<Commodity> SearchByName(String gname);
 }

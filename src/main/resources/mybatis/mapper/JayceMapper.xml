@@ -22,7 +22,11 @@
 	   from tb_commodity order by totalsales desc limit 0,#{num}
 	</select>
 	
-	
+	<!--  通过名字搜索 -->
+    <select id="SearchByName" parameterType="java.lang.String" resultMap="CommodityResult" >
+	  select gid,gname,price,stock,mouthlySales,totalSales,evaluationNum
+	   from tb_commodity   where gname like concat(concat("%",#{gname}),"%") order by mouthlysales desc
+	</select>
 	
 	
 </mapper>

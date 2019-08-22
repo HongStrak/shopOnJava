@@ -12,4 +12,7 @@ public interface Ijayce {
 	
 	//热销
 	public List<Commodity> HotSell(int num);
+	
+	//搜索
+	public List<Commodity> SearchByName(String gname);
 }

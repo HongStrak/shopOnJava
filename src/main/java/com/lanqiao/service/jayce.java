@@ -70,5 +70,9 @@ public class jayce implements Ijayce{
 		return hotList;
 	}
 
-	
+	@Override
+	public List<Commodity> SearchByName(String gname){
+		List<Commodity> com = jcMapper.SearchByName(gname);
+		return com;
+	}
 }
