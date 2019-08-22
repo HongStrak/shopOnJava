@@ -27,11 +27,11 @@ public class StarService implements	ApplicationRunner {
 			}	
 		}
 		
-		/*
-		for (Object uid : keys) {
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (Object uid : keys) {
 					Map map = redisTemplate.opsForHash().entries(uid);
 					Set orderIds = map.keySet();
 					for (Object orderId : orderIds) {
@@ -39,21 +39,17 @@ public class StarService implements	ApplicationRunner {
 						String key = uid + orderId.toString();
 						//2、查看是否存在这个定时diskey，不存在，则将订单还原
 						if(!redisTemplate.hasKey(key)) {
-	
 							//  还原商品库存信息，方法暂时还未实现
 							//commondityService.updateCommondityStock();
-	
 							//3、还原后，并删除订单
 							redisTemplate.opsForHash().delete(uid, orderId);
-						}
-						
+						}	
 					}	
-					
 				}
-			}).start();
+			}
+		}).start();
 			
-		}
-		*/
+		
 	
 		
 	}

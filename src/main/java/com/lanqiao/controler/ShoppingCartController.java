@@ -20,11 +20,13 @@ public class ShoppingCartController {
 	private IShoppingCartService shoppingCartService;
 	
 	@PostMapping("/update")
+	@ResponseBody
 	public void updateShoppingCart(ShoppingCart shoppingCart){
 		shoppingCartService.updateShoppingCart(shoppingCart);;
 	}
 	
 	@PostMapping("/delete")
+	@ResponseBody
 	public void deleteShoppingCart(ShoppingCart shoppingCart){
 		shoppingCartService.deleteShoppingCart(shoppingCart);
 	}
@@ -36,7 +38,8 @@ public class ShoppingCartController {
 	}
 	
 	
-	@GetMapping("/insert")
+	@PostMapping("/insert")
+	@ResponseBody
 	public void insertShoppingCart(ShoppingCart shoppingCart) {
 		shoppingCartService.insertShoppingCart(shoppingCart);
 	}

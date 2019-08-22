@@ -23,7 +23,7 @@ public class RedisKeyListener implements MessageListener{
 		//2、找到与之关联的key
 		String[] split = diskey.split("_");
 		String key = split[0];
-		Integer uid = Integer.parseInt(split[1]);
+		String uid = split[1];
 		//3、获取到orderForm
 		OrderForm orderForm = (OrderForm)redisTemplate.opsForHash().get(uid, key);
 		
