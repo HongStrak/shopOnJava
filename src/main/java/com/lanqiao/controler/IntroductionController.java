@@ -71,9 +71,15 @@ public class IntroductionController {
 		return jayce.HotSell(5);
 	}
 	
-	@PostMapping("/fun05")
+	@GetMapping("/fun05")
 	public List<Commodity> fun05(String gname){
 		List<Commodity> l = jayce.SearchByName(gname);
 		return l;
+	}
+	
+	@PostMapping("/fun06")
+	public String fun06(){
+		
+		return "sss";
 	}
 }
