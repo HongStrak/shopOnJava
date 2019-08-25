@@ -18,6 +18,15 @@
 	   from tb_commodity where gid=#{gid}
 	</select>
 	
+	 <update id="returnCommodityStock" parameterType="Commodity">
+        update tb_commodity 
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="stock != null  and stock != ''  ">stock = #{stock},</if>
+        </trim>
+        where gid = #{gid}
+    </update>
+    
+	
 <!-- 	
 	
 	

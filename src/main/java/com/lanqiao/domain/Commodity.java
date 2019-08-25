@@ -12,12 +12,22 @@ public class Commodity {
 	private Double price;
 	/* 库存 */
 	private Integer stock;
-	//月销售量
+	// 月销售量
 	private Integer mouthlySales;
-	//销售总量
+	// 销售总量
 	private Integer totalSales;
-	//总评价数
+	// 总评价数
 	private Integer evaluationNum;
+
+	public Commodity() {
+		super();
+	}
+
+	public Commodity(Integer gid, Integer stock) {
+		super();
+		this.gid = gid;
+		this.stock = stock;
+	}
 
 	public Integer getMouthlySales() {
 		return mouthlySales;
@@ -44,13 +54,6 @@ public class Commodity {
 	}
 
 	private List<String> images;
-	
-	
-	
-
-	public Commodity() {
-		super();
-	}
 
 	public Integer getGid() {
 		return gid;

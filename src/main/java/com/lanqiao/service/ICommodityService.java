@@ -15,4 +15,6 @@ public interface ICommodityService {
 	public void updateCommodity(Integer gid);
 
 	public Commodity selectCommodityById(Integer gid);
+	
+	public void returnCommodityStock(Commodity commodity);
 }

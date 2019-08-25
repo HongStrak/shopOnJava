@@ -18,4 +18,6 @@ public interface CommodityMapper {
 	
 	public void updateCommodity(Integer gid);
 
+	public void returnCommodityStock(Commodity commodity);
+
 }

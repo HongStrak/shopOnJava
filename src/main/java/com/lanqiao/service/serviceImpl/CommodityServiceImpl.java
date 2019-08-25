@@ -39,6 +39,11 @@ public class CommodityServiceImpl implements ICommodityService{
 		
 	}
 
+	@Override
+	public void returnCommodityStock(Commodity commodity) {
+		commodityMapper.returnCommodityStock(commodity);
+	}
+
 	
 
 
