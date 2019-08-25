@@ -1,5 +1,6 @@
 package com.lanqiao.service.serviceImpl;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -37,26 +38,29 @@ public class OrderFormServiceImpl implements IOrderFormService{
 		return maps;
 	}
 	
-	public void createOrderFrom(ShoppingCart shoppingCart) {
-		//1、创建订单
-		String uid = shoppingCart.getUid().toString();
-		OrderForm order = new OrderForm();
-		order.setShoppingCart(shoppingCart);
-		//2、生成订单号
-		String key = System.currentTimeMillis()+"";
-		order.setOrderId(key);
-		//3、将订单存入数据库
-		redisTemplate.opsForHash().put(uid,key,order);	
-		//4、生成定时订单 diskey 通过diskey监测订单是否超时
-		String diskey = key+"_"+uid;
-		//5、将diskey存入redis
-		redisTemplate.opsForValue().set(diskey, uid, 30L,TimeUnit.MINUTES);
-		//6、删除购物车
-		shoppingCartService.deleteShoppingCart(shoppingCart);
-		//7、生成订单，减少库存
-		commodityService.returnCommodityStock(new Commodity(shoppingCart.getTotal(),
-				shoppingCart.getCommodity().getStock()-shoppingCart.getTotal()));
-		 
+	public void createOrderFrom(List<ShoppingCart> shoppingCarts) {
+		for (ShoppingCart shoppingCart : shoppingCarts) {
+			//1、创建订单
+			String uid = shoppingCart.getUid().toString();
+			OrderForm order = new OrderForm();
+			order.setShoppingCart(shoppingCart);
+			//2、生成订单号
+			String key = System.currentTimeMillis()+"";
+			order.setOrderId(key);
+			//3、将订单存入数据库
+			redisTemplate.opsForHash().put(uid,key,order);	
+			//4、生成定时订单 diskey 通过diskey监测订单是否超时
+			String diskey = key+"_"+uid;
+			//5、将diskey存入redis
+			redisTemplate.opsForValue().set(diskey, uid, 30L,TimeUnit.MINUTES);
+			//6、删除购物车
+			shoppingCartService.deleteShoppingCart(shoppingCart);
+			//7、生成订单，减少库存
+			commodityService.returnCommodityStock(new Commodity(shoppingCart.getTotal(),
+					shoppingCart.getCommodity().getStock()-shoppingCart.getTotal()));
+			 
+		}
+		System.out.println("sadas");
 	}
 
 	public void cancelOrderForm(Integer uid,String orderId) {

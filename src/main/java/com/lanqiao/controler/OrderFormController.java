@@ -2,13 +2,9 @@ package com.lanqiao.controler;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.lanqiao.domain.OrderForm;
 import com.lanqiao.domain.ShoppingCart;
 import com.lanqiao.service.IOrderFormService;
@@ -41,9 +38,9 @@ public class OrderFormController {
 	@PostMapping("/create")
 	@ResponseBody
 	public void createOrderFrom(@RequestParam String shoppingCart) {
-		JSONObject json = JSONObject.parseObject(shoppingCart);
-		ShoppingCart shopping = JSON.toJavaObject(json,ShoppingCart.class);
-		orderFormService.createOrderFrom(shopping);
+		System.out.println(shoppingCart);
+		List<ShoppingCart> shoppingCarts = JSON.parseObject(shoppingCart,new TypeReference<List<ShoppingCart>>(){});
+		orderFormService.createOrderFrom(shoppingCarts);
 	}
 	
 	@PostMapping("/cancel")
@@ -55,9 +52,11 @@ public class OrderFormController {
 	@PostMapping("/commit")
 	@ResponseBody
 	public void commitOrderForm(@RequestParam String orderForm) {
-		JSONObject json = JSONObject.parseObject(orderForm);
-		OrderForm order = JSON.toJavaObject(json,OrderForm.class);
-		orderFormService.commitOrderForm(order);
+		//JSONObject json = JSONObject.parseObject(String[].class);
+		//OrderForm order = JSON.toJavaObject(json,OrderForm.class);
+		//orderFormService.commitOrderForm(order);
+		List<OrderForm> order = JSON.parseArray(orderForm,OrderForm.class); 
+		//System.out.println(order);
 	}
 	
 }

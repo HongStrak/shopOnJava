@@ -1,5 +1,6 @@
 package com.lanqiao.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.lanqiao.domain.OrderForm;
@@ -17,9 +18,9 @@ public interface IOrderFormService {
 	
 	/**
 	 * 	根据前台订单信息创建订单
-	 * @param shoppingCart 订单信息
+	 * @param shoppingCarts 订单信息
 	 */
-	public void createOrderFrom(ShoppingCart shoppingCart);
+	public void createOrderFrom(List<ShoppingCart> shoppingCarts);
 	
 	/**
 	 * 	根据uid和订单id取消订单
