@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanqiao.mapper.TbAddressMapper">
-  <resultMap id="BaseResultMap" type="com.lanqiao.pojo.TbAddress">
+  <resultMap id="BaseResultMap" type="com.lanqiao.domain.TbAddress">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="uid" jdbcType="INTEGER" property="uid" />
     <result column="address" jdbcType="VARCHAR" property="address" />
@@ -13,7 +13,7 @@
     delete from tb_address
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.lanqiao.pojo.Addr">
+  <insert id="insert" parameterType="com.lanqiao.domain.Addr">
     insert into tb_address (id, uid, address, 
       is_default_addr, receiver, tel
       )
@@ -21,7 +21,7 @@
       #{isDefaultAddr,jdbcType=CHAR}, #{receiver,jdbcType=VARCHAR}, #{tel}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.lanqiao.pojo.Addr">
+  <update id="updateByPrimaryKey" parameterType="com.lanqiao.domain.Addr">
     update tb_address
     set uid = #{uid,jdbcType=INTEGER},
       address = #{address,jdbcType=VARCHAR},
@@ -35,7 +35,7 @@
     set    is_default_addr ="0"
     where uid = #{uid,jdbcType=INTEGER}
   </update>
-   <update id="update1" parameterType="com.lanqiao.pojo.TbAddress">
+   <update id="update1" parameterType="com.lanqiao.domain.TbAddress">
     update tb_address
     set    is_default_addr ="1"
     where uid = #{uid,jdbcType=INTEGER}
