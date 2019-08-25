@@ -24,10 +24,15 @@ public class AccessOriginFilter implements Filter {
 	public void doFilter(ServletRequest res, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletResponse response = (HttpServletResponse) resp;
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
+		response.setHeader("Access-Control-Allow-Origin",
+				"*");
+		response.setHeader("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
 		response.setHeader("Access-Control-Max-Age", "3600");
+		
+		
 		response.setHeader("Access-Control-Allow-Headers", "Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE");
+		
+//		response.setHeader("Access-Control-Allow-Credentials", "true");
 		System.out.println("*********************************过滤器被使用**************************");
 		chain.doFilter(res, resp);
 

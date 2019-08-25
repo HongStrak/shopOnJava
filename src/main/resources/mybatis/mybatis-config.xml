@@ -9,6 +9,10 @@
 		<typeAlias type="com.lanqiao.domain.Commodity" alias="Commodity" />
 		<typeAlias type="com.lanqiao.domain.User" alias="User" />
 		<typeAlias type="com.lanqiao.domain.ShoppingCart" alias="ShoppingCart" />
+		<typeAlias type="com.lanqiao.domain.ShoppingCart" alias="ShoppingCart" />
+		<typeAlias type="com.lanqiao.domain.Collection" alias="CollectionA" />
+		<typeAlias type="com.lanqiao.domain.Foot" alias="Foot" />
+	
 	</typeAliases>
 	<plugins>
 	  <plugin interceptor="com.github.pagehelper.PageHelper">

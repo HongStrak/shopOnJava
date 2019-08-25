@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,8 +80,18 @@ public class IntroductionController {
 	}
 	
 	@PostMapping("/fun06")
-	public String fun06(){
-		
+	public String fun06(String phone,HttpSession session){
+		session.setAttribute("phone", phone);
 		return "sss";
+	}
+	
+	@PostMapping("/fun07")
+	public User fun07(HttpSession session){
+//		String phone = (String) session.getAttribute("phone");
+		
+		String phone = "18985840617";
+		User u = userservice.selectUserByPhone(phone);
+		System.out.println(u.getUsername());
+		return u;
 	}
 }
