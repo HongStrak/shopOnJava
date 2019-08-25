@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.mapper.TbUserMapper">
+  <resultMap id="BaseResultMap" type="com.lanqiao.domain.TbUser">
+    <id column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="username" jdbcType="VARCHAR"  property="username" />
+    <result column="realname"  jdbcType="VARCHAR"  property="realname" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="isSell" jdbcType="CHAR" property="issell" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="birth" jdbcType="DATE" property="birth" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_user
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lanqiao.domain.TbUser">
+    insert into tb_user (uid, username, realname, 
+      sex, password, phone, 
+      isSeller, email, birth)
+    values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=CHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{isseller,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{birth,jdbcType=DATE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lanqiao.domain.TbUser">
+    update tb_user
+    set username = #{username,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      birth=#{birth},  
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=DATE}
+    where uid = #{uid}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="com.lanqiao.domain.TbUser" resultMap="BaseResultMap">
+ select uid, username, realname, sex, password, phone, isSell, email, birth,image
+    from tb_user
+    where username=#{username}
+    and password=#{password}
+  </select>
+   <select id="select" parameterType="com.lanqiao.domain.TbUser" resultMap="BaseResultMap">
+    select uid, username, realname, sex, password, phone, isSeller, email, birth,image
+    from tb_user
+    where username=#{username}
+    and password=#{password}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select uid, username, realname, sex, password, phone, isSeller, email, birth
+    from tb_user
+  </select>
+</mapper>
