@@ -60,7 +60,6 @@ public class OrderFormServiceImpl implements IOrderFormService{
 					shoppingCart.getCommodity().getStock()-shoppingCart.getTotal()));
 			 
 		}
-		System.out.println("sadas");
 	}
 
 	public void cancelOrderForm(Integer uid,String orderId) {

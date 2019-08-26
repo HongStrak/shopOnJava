@@ -38,7 +38,6 @@ public class OrderFormController {
 	@PostMapping("/create")
 	@ResponseBody
 	public void createOrderFrom(@RequestParam String shoppingCart) {
-		System.out.println(shoppingCart);
 		List<ShoppingCart> shoppingCarts = JSON.parseObject(shoppingCart,new TypeReference<List<ShoppingCart>>(){});
 		orderFormService.createOrderFrom(shoppingCarts);
 	}
@@ -52,11 +51,9 @@ public class OrderFormController {
 	@PostMapping("/commit")
 	@ResponseBody
 	public void commitOrderForm(@RequestParam String orderForm) {
-		//JSONObject json = JSONObject.parseObject(String[].class);
-		//OrderForm order = JSON.toJavaObject(json,OrderForm.class);
-		//orderFormService.commitOrderForm(order);
-		List<OrderForm> order = JSON.parseArray(orderForm,OrderForm.class); 
-		//System.out.println(order);
+		JSONObject json = JSONObject.parseObject(orderForm);
+		OrderForm order = JSON.toJavaObject(json,OrderForm.class);
+		orderFormService.commitOrderForm(order);
 	}
 	
 }

@@ -26,14 +26,6 @@ public class StarService implements	ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		Set keys = redisTemplate.keys("[0-9]");
-		for (Object uid : keys) {
-			Map map = redisTemplate.opsForHash().entries(uid.toString());
-			Set orderIds = map.keySet();
-			for (Object orderId : orderIds) {
-				System.out.println(orderId);
-			}	
-		}
-		
 		
 		new Thread(new Runnable() {
 			@Override
