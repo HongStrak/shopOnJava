@@ -10,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +25,7 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.lanqiao.config.AlipayConfig;
+import com.lanqiao.service.IOrderFormService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,8 +43,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/alipay")
 public class AlipayController {
 
+	@Autowired
+	private RedisTemplate redisTemplate;
+	
 	@RequestMapping("/pay")
-	public void pay(HttpServletRequest httpRequest, HttpServletResponse httpResponse, @RequestParam String orders)
+	public void pay(HttpServletRequest httpRequest, HttpServletResponse httpResponse)
 			throws ServletException, IOException, AlipayApiException {
 
 		AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id,
@@ -62,7 +68,7 @@ public class AlipayController {
 		
 
 		alipayRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\"," + "\"total_amount\":\"" + total_amount
-				+ "\"," + "\"subject\":\"" + subject + "\"," + "\"body\":\"" + body + "\","+"\"orders\":\""+ orders
+				+ "\"," + "\"subject\":\"" + subject + "\"," + "\"body\":\"" + body + "\","
 				+ "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
 		String form = "";
 
@@ -127,6 +133,13 @@ public class AlipayController {
 
 				// 注意：
 				// 付款完成后，支付宝系统发送该交易状态通知
+				String body = request.getParameter("body");
+				String[] keys = body.split("_");
+				if(keys.length > 1) {
+					for (int i=1;i<keys.length;i++) {
+						redisTemplate.opsForHash().delete(keys[0], keys[i]);
+					}
+				}
 			}
 
 		} else {// 验证失败
@@ -141,8 +154,7 @@ public class AlipayController {
 
 	@GetMapping("/notify")
 	public void return_url(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, AlipayApiException {
-		System.out.println("return 調用");
+			throws IOException, AlipayApiException, ServletException {
 		// 获取支付宝GET过来反馈信息
 		Map<String, String> params = new HashMap<String, String>();
 		Map<String, String[]> requestParams = request.getParameterMap();
@@ -162,7 +174,7 @@ public class AlipayController {
 				AlipayConfig.sign_type); // 调用SDK验证签名
 		// ——请在这里编写您的程序（以下代码仅作参考）——
 		if (signVerified) {
-			// 商户订单号
+			/*// 商户订单号
 			String out_trade_no = request.getParameter("out_trade_no");
 			// 支付宝交易号
 			String trade_no = request.getParameter("trade_no");
@@ -171,7 +183,8 @@ public class AlipayController {
 			String total_amount = request.getParameter("total_amount");
 
 			response.getWriter().println(
-					"trade_no:" + trade_no + "<br/>out_trade_no:" + out_trade_no + "<br/>total_amount:" + total_amount);
+					"trade_no:" + trade_no + "<br/>out_trade_no:" + out_trade_no + "<br/>total_amount:" + total_amount);*/
+			response.sendRedirect("https://www.baidu.com/");
 		} else {
 			response.getWriter().println("验签失败");
 		}
