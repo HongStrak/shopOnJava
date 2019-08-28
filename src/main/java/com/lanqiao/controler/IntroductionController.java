@@ -19,7 +19,6 @@ import com.lanqiao.mapper.CommodityMapper;
 import com.lanqiao.service.IUserService;
 import com.lanqiao.service.serviceImpl.Ijayce;
 @RestController
-@CrossOrigin
 @RequestMapping("/introduction")
 public class IntroductionController {
 
@@ -43,15 +42,16 @@ public class IntroductionController {
 	
 	//创建用户或者登陆
 	@GetMapping("/fun02")
-	public String fun02(String phone,String mess){
+	public String fun02(String phone,String mess,HttpSession session){
 		User user = userservice.selectUserByPhone(phone);
 		if(user==null){
 			userservice.insertUserByPhone(phone);
 			System.out.println("已创建用户");
-			fun02(phone,mess);
+			fun02(phone,mess,session);
 		}
 		if(code.equals(mess)&&mess!=null&&mess!=""){
 			System.out.println(code+":::"+mess);
+			session.setAttribute("phone", phone);
 			return "true";
 		}
 		return "false";
@@ -87,11 +87,19 @@ public class IntroductionController {
 	
 	@PostMapping("/fun07")
 	public User fun07(HttpSession session){
-//		String phone = (String) session.getAttribute("phone");
-		
-		String phone = "18985840617";
+		String phone = (String) session.getAttribute("phone");
 		User u = userservice.selectUserByPhone(phone);
 		System.out.println(u.getUsername());
 		return u;
 	}
+	
+	
+	//返回我可能喜欢的列表
+	@PostMapping("/fun08")
+	public List<Commodity> fun08(int uid){
+		List<Commodity> l = jayce.SearchILike(uid);
+		return l;
+	}
+	
+
 }
