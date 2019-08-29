@@ -1,5 +1,6 @@
 package com.lanqiao.domain;
 
+import java.util.List;
 
 /**用户表JavaBean*/
 public class User {
@@ -17,6 +18,16 @@ public class User {
 	private String phone;
 	/** 是否为商家 */
 	private String isSell;
+	
+	private List Wen;
+
+	public List getWen() {
+		return Wen;
+	}
+
+	public void setWen(List wen) {
+		Wen = wen;
+	}
 
 	public User() {
 		super();

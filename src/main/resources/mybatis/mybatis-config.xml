@@ -12,7 +12,7 @@
 		<typeAlias type="com.lanqiao.domain.ShoppingCart" alias="ShoppingCart" />
 		<typeAlias type="com.lanqiao.domain.Collection" alias="CollectionA" />
 		<typeAlias type="com.lanqiao.domain.Foot" alias="Foot" />
-	
+		<typeAlias type="com.lanqiao.domain.Wen" alias="Wen" />
 	</typeAliases>
 	<plugins>
 	  <plugin interceptor="com.github.pagehelper.PageHelper">

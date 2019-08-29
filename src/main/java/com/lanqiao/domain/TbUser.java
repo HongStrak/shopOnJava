@@ -1,6 +1,7 @@
 package com.lanqiao.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class TbUser {
     private Integer uid;
@@ -26,7 +27,19 @@ public class TbUser {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getImage() {
+	
+    private List Wen;
+
+	public List getWen() {
+		return Wen;
+	}
+    
+	public void setWen(List wen) {
+		Wen = wen;
+	}
+	
+    public String getImage() {
+
 		return image;
 	}
 
@@ -49,9 +62,6 @@ public class TbUser {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	
-
 
 
 	public Integer getUid() {
