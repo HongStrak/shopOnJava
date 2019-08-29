@@ -50,7 +50,7 @@
 	
 	
 	<select id="SearchWen" parameterType="int" resultType="Wen" >
-	 	select uid,gid,wen from tb_wen where wen=#{uid}
+	 	select uid,gid,wen from tb_wen where uid=#{uid}
 	</select>
 	<!-- 找到指定的wen -->
 	<select id="SearchWenByWen" parameterType="Wen" resultType="Wen" >
