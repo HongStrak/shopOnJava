@@ -141,9 +141,14 @@ public class jayce implements Ijayce{
 		List<Commodity> comms = SelectAllCom();
 		int shops = comms.size();
 		int grade[][] = new int[men][shops];
+		int ii = 0;
 		for (TbUser user : users) {
-			Object[] array = user.getWen().toArray();
-			System.out.println(array);
+			int j=0;
+			List<Integer> array = user.getWen();
+			for (Integer arr : array) {
+				grade[ii][j++] = arr;
+			}
+			ii++;
 		}
 	/*	int grade[][] = {
 				{1,0,5,3,0,0},
@@ -152,37 +157,37 @@ public class jayce implements Ijayce{
 				{10,0,0,0,5,0},
 				{0,0,5,1,0,0},
 				{0,5,3,0,0,1}
-		};
+		};*/
 		
-				
-				double $cos[][] = new double[men][shops];
-				for(int k=0; k<men;k++) {
-					for(int j=0; j< men;j++) {
-						double $x0 = 0;
-						double $x1 = 0;
-						int $y[] = new int[men];
-						for(int i=0; i<shops; i++) {
-							$y[j] = $y[j] + grade[k][i]*grade[j][i]; 
-							$x0 = $x0 +grade[k][i]*grade[k][i]; 
-							$x1 = $x1 +grade[j][i]*grade[j][i]; 
-						}
-						$cos[k][j] = (double)Math.round(($y[j]/(Math.sqrt($x0)*Math.sqrt($x1)))*100)/100;
-						
+			
+			double $cos[][] = new double[men][shops];
+			for(int k=0; k<men;k++) {
+				for(int j=0; j< men;j++) {
+					double $x0 = 0;
+					double $x1 = 0;
+					int $y[] = new int[men];
+					for(int i=0; i<shops; i++) {
+						$y[j] = $y[j] + grade[k][i]*grade[j][i]; 
+						$x0 = $x0 +grade[k][i]*grade[k][i]; 
+						$x1 = $x1 +grade[j][i]*grade[j][i]; 
 					}
+					$cos[k][j] = (double)Math.round(($y[j]/(Math.sqrt($x0)*Math.sqrt($x1)))*100)/100;
+					
 				}
-				
-				//推荐列表 = 相似度矩阵 X 评分矩阵
-				double recom[][] = new double[men][shops];
-				 int y = men;
-			        int x = shops;
-			        int c[][] = new int[y][x];
-			        for (int i = 0; i < men; i++)
-			            for (int j = 0; j < shops; j++)
-			                //c矩阵的第i行第j列所对应的数值，等于a矩阵的第i行分别乘以b矩阵的第j列之和
-			                for (int k = 0; k < shops; k++)
-			                	recom[i][j] += (double)Math.round($cos[i][k] * grade[k][j]*10)/10;
+			}
+			
+			//推荐列表 = 相似度矩阵 X 评分矩阵
+			double recom[][] = new double[men][shops];
+			 int y = men;
+		        int x = shops;
+		        int c[][] = new int[y][x];
+		        for (int i = 0; i < men; i++)
+		            for (int j = 0; j < shops; j++)
+		                //c矩阵的第i行第j列所对应的数值，等于a矩阵的第i行分别乘以b矩阵的第j列之和
+		                for (int k = 0; k < shops; k++)
+		                	recom[i][j] += (double)Math.round($cos[i][k] * grade[k][j]*10)/10;
 
 
-			        System.out.println("asd");*/
+		        System.out.println("asd");
 	}
 }

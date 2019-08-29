@@ -19,10 +19,10 @@
   <insert id="insert" parameterType="com.lanqiao.domain.TbUser">
     insert into tb_user (uid, username, realname, 
       sex, password, phone, 
-      isSeller, email, birth)
+      isSell, email, birth)
     values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
       #{sex,jdbcType=CHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{isseller,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{birth,jdbcType=DATE})
+      #{issell,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{birth,jdbcType=DATE})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.lanqiao.domain.TbUser">
     update tb_user 
@@ -46,13 +46,13 @@
     and password=#{password} -->
   </select>
    <select id="select" parameterType="com.lanqiao.domain.TbUser" resultMap="BaseResultMap">
-    select uid, username, realname, sex, password, phone, isSeller, email, birth,image
+    select uid, username, realname, sex, password, phone, isSell, email, birth,image
     from tb_user
     where username=#{username}
     and password=#{password}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select uid, username, realname, sex, password, phone, isSeller, email, birth
+    select uid, username, realname, sex, password, phone, isSell, email, birth
     from tb_user
   </select>
 </mapper>

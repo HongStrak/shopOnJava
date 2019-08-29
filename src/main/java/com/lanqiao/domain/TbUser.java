@@ -1,6 +1,6 @@
 package com.lanqiao.domain;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TbUser {
@@ -29,7 +29,7 @@ public class TbUser {
 
 	
 
-    private List<Integer> Wen;
+    private List<Integer> Wen = new ArrayList<>();
 
 	public List<Integer> getWen() {
 		return Wen;
