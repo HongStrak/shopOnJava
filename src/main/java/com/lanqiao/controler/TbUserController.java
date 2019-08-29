@@ -39,10 +39,9 @@ public class TbUserController {
  	}*/
  	
  	@PostMapping("/selectm")
- 	public TbUser selectM(){
+ 	public TbUser selectM(int uid){
  		TbUser user=new TbUser();
- 		user.setUsername("faker");
- 		user.setPassword("123456");
+ 		user.setUid(uid);
  		System.out.println(user);
  		return tbuserMapper.selectByPrimaryKey(user);
  	}
@@ -51,11 +50,7 @@ public class TbUserController {
  	@PostMapping("/update")
  	public String update(TbUser user,HttpServletResponse response, HttpSession session)
  	{
- 		System.out.println(user.getSex());
- 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
-		response.setHeader("Access-Control-Max-Age", "3600");
-		response.setHeader("Access-Control-Allow-Headers", "Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE");
+ 		
  		
  		
  		userservice.updateByPrimaryKey(user);

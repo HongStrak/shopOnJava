@@ -35,6 +35,7 @@ public class AddrController {
 	
 		
 		String sheng=addr.getSheng();
+		System.out.println("uid:"+addr.getUid());
 		String shi=addr.getShi();
 		if(sheng!=null)
 		{
@@ -64,18 +65,18 @@ public class AddrController {
 		{
 		address=address+xian;
 		}
-		addr.setUid(1);
+		
 		addr.setAddress(address);
 		addrservice.insert(addr);
 		return "/pages/person.jsp";
 		
 	}
 
-	@RequestMapping("/select")
+	@PostMapping("/select")
 	public List<TbAddress> select(Integer uid){
 		List<TbAddress> list = addrservice.selectAll(uid);
 		System.out.println(list);
-
+		System.out.println("addr:uid:"+list.size());
 		return list;
 	}
 	
@@ -123,7 +124,7 @@ public class AddrController {
 		address=sheng+shi+xian+detail;
 		}
 		addr.setAddress(address);
-		addr.setUid(1);
+		
 		addrservice.updateByPrimaryKey(addr);
 		return "/addr/select.do";
 	}

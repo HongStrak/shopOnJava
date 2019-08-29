@@ -38,8 +38,7 @@
   <select id="selectByPrimaryKey" parameterType="com.lanqiao.domain.TbUser" resultMap="BaseResultMap">
  select uid, username, realname, sex, password, phone, isSell, email, birth,image  
     from tb_user 
-    where username=#{username}  
-    and password=#{password}
+    where uid = #{uid}
      <!-- select uid, username, password, realname,sex,phone,isSell,email,birth,image  
     from tb_user
     where username=#{username}
