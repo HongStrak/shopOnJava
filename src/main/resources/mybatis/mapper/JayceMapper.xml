@@ -29,4 +29,16 @@
 	</select>
 	
 	
+	<!--  查找最近浏览最多的俩个标签 -->
+	<select id="SearchILike" parameterType="int" resultType="int" >
+	 select tid from 
+	 (select tid,count(*),uid from tb_foot f left
+	  outer join tb_tag t on t.gid=f.gid and uid=#{uid} and 
+	  level=3 group by tid order by count(*) desc limit 0,2) t
+	</select>
+	
+	<select id="SearchSameCom" parameterType="int" resultMap="CommodityResult" >
+	 select gid,gname,price,stock,mouthlySales,totalSales,evaluationNum from tb_commodity 
+	 where gid in(select gid from tb_tag where tid=#{tid} ) limit 0,3
+	</select>
 </mapper>

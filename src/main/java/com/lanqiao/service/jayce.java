@@ -75,4 +75,13 @@ public class jayce implements Ijayce{
 		List<Commodity> com = jcMapper.SearchByName(gname);
 		return com;
 	}
+
+
+	@Override
+	public List<Commodity> SearchILike(int uid) {
+		int[] a = jcMapper.SearchILike(uid);
+		List list = jcMapper.SearchSameCom(a[0]);
+		list.addAll(jcMapper.SearchSameCom(a[1]));
+		return list;
+	}
 }

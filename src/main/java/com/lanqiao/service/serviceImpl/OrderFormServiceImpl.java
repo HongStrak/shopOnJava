@@ -1,5 +1,6 @@
 package com.lanqiao.service.serviceImpl;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -8,8 +9,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import com.lanqiao.domain.Commodity;
 import com.lanqiao.domain.OrderForm;
 import com.lanqiao.domain.ShoppingCart;
+import com.lanqiao.service.ICommodityService;
 import com.lanqiao.service.IOrderFormService;
 import com.lanqiao.service.IShoppingCartService;
 
@@ -26,28 +29,37 @@ public class OrderFormServiceImpl implements IOrderFormService{
 	@Autowired
 	private IShoppingCartService shoppingCartService; 
 	
+	@Autowired
+	private ICommodityService commodityService; 
+	
 	
 	public Map selectOrderFromByUid(Integer uid) {
 		Map maps = redisTemplate.opsForHash().entries(uid.toString());	
 		return maps;
 	}
 	
-	public void createOrderFrom(ShoppingCart shoppingCart) {
-		//1、创建订单
-		String uid = shoppingCart.getUid().toString();
-		OrderForm order = new OrderForm();
-		order.setShoppingCart(shoppingCart);
-		//2、生成订单号
-		String key = System.currentTimeMillis()+"";
-		order.setOrderId(key);
-		//3、将订单存入数据库
-		redisTemplate.opsForHash().put(uid,key,order);	
-		//4、生成定时订单 diskey 通过diskey监测订单是否超时
-		String diskey = System.currentTimeMillis()+"_"+uid;
-		//5、将diskey存入redis
-		redisTemplate.opsForValue().set(diskey, uid, 30L,TimeUnit.MINUTES);
-		//6、删除购物车
-		shoppingCartService.deleteShoppingCart(shoppingCart);
+	public void createOrderFrom(List<ShoppingCart> shoppingCarts) {
+		for (ShoppingCart shoppingCart : shoppingCarts) {
+			//1、创建订单
+			String uid = shoppingCart.getUid().toString();
+			OrderForm order = new OrderForm();
+			order.setShoppingCart(shoppingCart);
+			//2、生成订单号
+			String key = System.currentTimeMillis()+"";
+			order.setOrderId(key);
+			//3、将订单存入数据库
+			redisTemplate.opsForHash().put(uid,key,order);	
+			//4、生成定时订单 diskey 通过diskey监测订单是否超时
+			String diskey = key+"_"+uid;
+			//5、将diskey存入redis
+			redisTemplate.opsForValue().set(diskey, uid, 30L,TimeUnit.MINUTES);
+			//6、删除购物车
+			shoppingCartService.deleteShoppingCart(shoppingCart);
+			//7、生成订单，减少库存
+			commodityService.returnCommodityStock(new Commodity(shoppingCart.getTotal(),
+					shoppingCart.getCommodity().getStock()-shoppingCart.getTotal()));
+			 
+		}
 	}
 
 	public void cancelOrderForm(Integer uid,String orderId) {
@@ -59,10 +71,11 @@ public class OrderFormServiceImpl implements IOrderFormService{
 		Integer total = order.getShoppingCart().getTotal();
 		Integer gid = order.getShoppingCart().getGid();
 		
-		/*
-		 * 还原商品库存信息，方法暂时还未实现
-		 * commondityService.updateCommondityStock();
-		 */
+		
+		//还原商品库存信息
+		commodityService.returnCommodityStock(new Commodity(order.getShoppingCart().getTotal(),
+					order.getShoppingCart().getTotal()+order.getShoppingCart().getCommodity().getStock()));
+		 
 		
 		//3、删除redis数据库中的信息
 		redisTemplate.opsForHash().delete(_uid, orderId);
@@ -79,6 +92,8 @@ public class OrderFormServiceImpl implements IOrderFormService{
 		/*带处理事务*/
 		
 		//3、更新redis
+		
 		redisTemplate.opsForHash().delete(orderForm.getShoppingCart().getUid().toString(),orderId);
+	
 	}
 }

@@ -15,4 +15,6 @@ public interface Ijayce {
 	
 	//搜索
 	public List<Commodity> SearchByName(String gname);
+	
+	public List<Commodity> SearchILike(int uid);
 }

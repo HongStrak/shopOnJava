@@ -1,4 +1,4 @@
-package com.laniqiao.util;
+package com.lanqiao.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;

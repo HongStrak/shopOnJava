@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.mapper.CollectionMapper">
+	
+	
+	
+	<resultMap type="CollectionA"   id="CollectionResult">
+	
+	   <result property="uid"    column="uid"    />
+	   
+	  	<result property="gid"    column="gid"    />
+        <result property="gname"    column="gname"    />
+        <result property="price"    column="price"    />
+        <result property="image"    column="image"    />
+        <result property="is_default_image"    column="is_default_image"    />
+
+       
+    </resultMap>
+    
+  
+    <select id="selectCollectionByUid"   resultMap="CollectionResult">
+    	select a.uid,d.gid,d.price,d.gname,d.image from tb_collection a,
+       (select b.gid,b.price,b.gname,c.image
+ from tb_commodity b LEFT JOIN (select gid,image from tb_image where is_default_image=1 ) c on b.gid=c.gid) d 
+       where a.gid = d.gid and a.uid = #{uid}
+    </select>
+    
+    <insert id="insertCollection"   parameterType="CollectionA">
+    	insert into tb_collection
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uid != null  ">uid,</if>
+			<if test="gid != null  ">gid,</if>
+			
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uid != null  ">#{uid},</if>
+			<if test="gid != null " >#{gid},</if>
+		
+		</trim>
+    </insert>
+    
+	 
+    
+    <delete id="deleteCollection"   parameterType="CollectionA" >
+        delete from tb_collection where uid =#{uid} and gid=#{gid}    
+    </delete>
+    
+    
+    
+ </mapper>

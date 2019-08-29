@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.laniqiao.util.LocalUtil;
 import com.lanqiao.domain.TbUser;
 import com.lanqiao.mapper.TbUserMapper;
 import com.lanqiao.service.ITbUserService;
+import com.lanqiao.util.LocalUtil;
 
 
 @RestController

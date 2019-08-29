@@ -11,6 +11,10 @@ public class ShoppingCart {
 		return gid;
 	}
 
+	public Integer getTotal() {
+		return total;
+	}
+
 	public void setGid(Integer gid) {
 		this.gid = gid;
 	}
@@ -23,7 +27,7 @@ public class ShoppingCart {
 		this.uid = uid;
 	}
 
-	public Integer getTotal() {
+	public Integer shoppingCart() {
 		return total;
 	}
 

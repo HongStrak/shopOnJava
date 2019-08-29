@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanqiao.mapper.TbAddressMapper">
 
+
   <resultMap id="BaseResultMap"   type="com.lanqiao.domain.TbAddress">
     <result column="id"   property="id" />
     <result column="uid"   property="uid" />
@@ -9,13 +10,15 @@
     <result column="is_default_addr"   property="isDefaultAddr" />
     <result column="receiver"   property="receiver" />
     <result column="tel"  property="tel" />
-  </resultMap>
+</resultMap>
+
   
   <delete id="deleteByPrimaryKey" >
     delete from tb_address
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lanqiao.domain.Addr">
+
   
       	insert into tb_address
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -37,6 +40,7 @@
   </insert>
   
   
+
   <update id="updateByPrimaryKey" parameterType="com.lanqiao.domain.Addr">
     update tb_address
      <trim prefix="SET" suffixOverrides=",">
