@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanqiao.mapper.RecommendMapper">
+	 <resultMap type="Commodity" id="CommodityResult">
+	  	<result property="gid"    column="gid"    />
+        <result property="gname"    column="gname"    />
+        <result property="price"    column="price"    />
+        <result property="stock"    column="stock"    />
+        <result property="mouthlySales"    column="mouthlySales"    />
+        <result property="totalSales"    column="totalSales"    />
+        <result property="evaluationNum"    column="evaluationNum"    />
+    </resultMap>
+	
+	<select id="selectRecommendById" parameterType="int" resultMap="CommodityResult" >
+	  select u.gid,u.gname,u.price,u.stock,u.mouthlySales,u.totalSales,u.evaluationNum
+	   from tb_commodity u,(select uid,gid,wen from tb_recommend where uid=#{uid} order by wen desc ) t  
+	   where u.gid=t.gid
+	</select>
+	
+   	<insert id="insertRecommend" parameterType="com.lanqiao.domain.Comment">
+	   	insert into tb_recommend 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uid != null  ">uid,</if>
+			<if test="gid != null  ">gid,</if>
+			<if test="wen != null  ">wen,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uid != null  ">#{uid},</if>
+			<if test="gid != null " >#{gid},</if>
+			<if test="wen != null " >#{wen},</if>
+		</trim>
+    </insert>
+</mapper>

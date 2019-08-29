@@ -8,6 +8,19 @@ public class Comment {
 	private Integer ctype;
 	private Integer praise;
 	
+	
+	
+	public Comment() {
+		super();
+		
+	}
+	
+	public Comment(Integer uid, Integer gid) {
+		super();
+		this.uid = uid;
+		this.gid = gid;
+	}
+
 	public Integer getPraise() {
 		return praise;
 	}
