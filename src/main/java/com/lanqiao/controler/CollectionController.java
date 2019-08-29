@@ -37,7 +37,7 @@ public class CollectionController {
 		if(w==null){
 			jcMapper.insertWen(new Wen(collection.getUid(),collection.getGid(),3));
 		}else{
-			if(w.getWen()==0){
+			if(w.getWen()<5){
 				w.setWen(3);
 				jcMapper.updateWen(w);
 			}
