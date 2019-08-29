@@ -54,7 +54,7 @@
 	</select>
 	<!-- 找到指定的wen -->
 	<select id="SearchWenByWen" parameterType="Wen" resultType="Wen" >
-	 	select uid,gid,wen from tb_wen where wen=#{uid} and gid=#{gid}
+	 	select uid,gid,wen from tb_wen where uid=#{uid} and gid=#{gid}
 	</select>
 	
 	<!--添加Wen  -->
