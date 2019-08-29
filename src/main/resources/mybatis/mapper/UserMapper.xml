@@ -23,6 +23,8 @@
 		select id,uid,address,is_default_addr from tb_address where uid = #{uid}
 	</select>
 	
+	
+	
 	<insert id="insertAddress" parameterType="Address">
 		insert into tb_address
 		<trim prefix="(" suffix=")" suffixOverrides=",">
