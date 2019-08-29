@@ -2,7 +2,9 @@ package com.lanqiao.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,10 +16,13 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
+import com.lanqiao.domain.Comment;
 import com.lanqiao.domain.Commodity;
+import com.lanqiao.domain.Recommend;
 import com.lanqiao.domain.TbUser;
 import com.lanqiao.domain.Wen;
 import com.lanqiao.mapper.JayceMapper;
+import com.lanqiao.mapper.RecommendMapper;
 import com.lanqiao.mapper.TbUserMapper;
 import com.lanqiao.service.serviceImpl.*;
 @Service
@@ -29,6 +34,9 @@ public class jayce implements Ijayce{
 	@Autowired
 	private TbUserMapper userMapper;
 
+	@Autowired
+	private RecommendMapper recommendMapper;
+	
 	@Override   //随机发送验证码
 	public String SendRandomCode(String phone,String code) {
 		
@@ -133,9 +141,6 @@ public class jayce implements Ijayce{
 	}
 	
 	public void userCF() {
-		//计算余弦相似度，求出相似矩阵
-				//double $cos = 0.9;
-		
 		List<TbUser> users = compute();
 		int men = users.size();
 		List<Commodity> comms = SelectAllCom();
@@ -150,17 +155,9 @@ public class jayce implements Ijayce{
 			}
 			ii++;
 		}
-	/*	int grade[][] = {
-				{1,0,5,3,0,0},
-				{0,3,0,0,3,0},
-				{5,0,0,0,0,10},
-				{10,0,0,0,5,0},
-				{0,0,5,1,0,0},
-				{0,5,3,0,0,1}
-		};*/
 		
 			
-			double $cos[][] = new double[men][shops];
+			double $cos[][] = new double[men][men];
 			for(int k=0; k<men;k++) {
 				for(int j=0; j< men;j++) {
 					double $x0 = 0;
@@ -172,22 +169,34 @@ public class jayce implements Ijayce{
 						$x1 = $x1 +grade[j][i]*grade[j][i]; 
 					}
 					$cos[k][j] = (double)Math.round(($y[j]/(Math.sqrt($x0)*Math.sqrt($x1)))*100)/100;
-					
 				}
 			}
 			
 			//推荐列表 = 相似度矩阵 X 评分矩阵
 			double recom[][] = new double[men][shops];
-			 int y = men;
-		        int x = shops;
-		        int c[][] = new int[y][x];
-		        for (int i = 0; i < men; i++)
-		            for (int j = 0; j < shops; j++)
-		                //c矩阵的第i行第j列所对应的数值，等于a矩阵的第i行分别乘以b矩阵的第j列之和
-		                for (int k = 0; k < shops; k++)
-		                	recom[i][j] += (double)Math.round($cos[i][k] * grade[k][j]*10)/10;
-
-
-		        System.out.println("asd");
+			
+			for(int k=0;k<shops;k++) {
+				for(int i=0;i<men;i++) {
+					double $x = 0;
+					for(int j=0;j<men;j++) {
+						$x = $x + $cos[i][j]*grade[j][k];
+					}
+					recom[i][k] = $x;
+				}
+			}
+			
+			for(int i=0;i<men;i++) {
+				for(int j=0;j<shops;j++) {
+					if(recom[i][j] > 3) {
+						Integer uid = users.get(i).getUid();
+						Integer gid = comms.get(j).getGid();
+						//插入到数据库中
+						recommendMapper.insertRecommend(new Recommend(uid,gid,recom[i][j]));
+					}
+				}
+			}
+			
+			
+			
 	}
 }

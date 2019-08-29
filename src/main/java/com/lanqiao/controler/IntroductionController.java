@@ -107,5 +107,11 @@ public class IntroductionController {
 	public void fun09(int uid,int gid){
 		jayce.browse(uid, gid);
 	}
+	
+	
+	@RequestMapping("/userCF")
+	public void userCF() {
+		jayce.userCF();
+	}
 
 }
