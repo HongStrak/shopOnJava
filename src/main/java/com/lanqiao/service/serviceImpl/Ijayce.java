@@ -22,4 +22,7 @@ public interface Ijayce {
 	public List<TbUser> compute();
 	
 	public List<Commodity> SelectAllCom();
+	
+	public void userCF();
 }
+

@@ -12,6 +12,7 @@ import com.lanqiao.domain.Address;
 import com.lanqiao.domain.ShoppingCart;
 import com.lanqiao.mapper.ShoppingCartMapper;
 import com.lanqiao.mapper.UserMapper;
+import com.lanqiao.service.serviceImpl.Ijayce;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -22,13 +23,15 @@ public class AppTest {
 	
     @Autowired
 	private ShoppingCartMapper shoppingCartMapper;
+    
+    @Autowired
+    private Ijayce jayce;
 	
+    
     
 	@Test
 	public void test1() {
-		List<ShoppingCart> list = shoppingCartMapper.selectShoppingCartByUid(1);
-		System.out.println(list);
-		
+		jayce.userCF();
 	}
 	
 	

@@ -21,20 +21,21 @@ public class TbUser {
     private String birth;
     private String image;
     
+
     
     public TbUser() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	
-    private List Wen;
 
-	public List getWen() {
+    private List<Integer> Wen;
+
+	public List<Integer> getWen() {
 		return Wen;
 	}
     
-	public void setWen(List wen) {
+	public void setWen(List<Integer> wen) {
 		Wen = wen;
 	}
 	
