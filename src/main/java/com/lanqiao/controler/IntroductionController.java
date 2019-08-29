@@ -62,8 +62,9 @@ public class IntroductionController {
 	public String fun03(String phone){
 		String code = jayce.randomCode();
 		this.code = code;
-		System.out.println(code);
+		
 		String data = jayce.SendRandomCode(phone,code);
+		System.out.println(code);
 		return data;
 	}
 	
@@ -101,5 +102,9 @@ public class IntroductionController {
 		return l;
 	}
 	
+	@PostMapping("/fun09")
+	public void fun09(){
+		
+	}
 
 }

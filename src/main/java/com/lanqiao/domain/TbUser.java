@@ -1,6 +1,7 @@
 package com.lanqiao.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class TbUser {
     private Integer uid;
@@ -20,6 +21,16 @@ public class TbUser {
     private String birth;
     private String image;
     
+    private List Wen;
+
+	public List getWen() {
+		return Wen;
+	}
+    
+	public void setWen(List wen) {
+		Wen = wen;
+	}
+	
     public String getImage() {
 		return image;
 	}

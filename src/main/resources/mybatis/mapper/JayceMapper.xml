@@ -16,10 +16,16 @@
 	
 	
     
-    <!--   通过手机号查用户 -->
+
     <select id="HotSell" parameterType="int" resultMap="CommodityResult" >
 	  select gid,gname,price,stock,mouthlySales,totalSales,evaluationNum
 	   from tb_commodity order by totalsales desc limit 0,#{num}
+	</select>
+	
+	<!-- 查询所有的商品  -->
+	<select id="SelectAllCom"  resultMap="CommodityResult" >
+	  select gid,gname,price,stock,mouthlySales,totalSales,evaluationNum
+	   from tb_commodity 
 	</select>
 	
 	<!--  通过名字搜索 -->
@@ -41,4 +47,31 @@
 	 select gid,gname,price,stock,mouthlySales,totalSales,evaluationNum from tb_commodity 
 	 where gid in(select gid from tb_tag where tid=#{tid} ) limit 0,3
 	</select>
+	
+	
+	<select id="SearchWen" parameterType="int" resultType="Wen" >
+	 	select uid,gid,wen from tb_wen where wen=#{uid}
+	</select>
+	<!-- 找到指定的wen -->
+	<select id="SearchWenByWen" parameterType="Wen" resultType="Wen" >
+	 	select uid,gid,wen from tb_wen where wen=#{uid} and gid=#{gid}
+	</select>
+	
+	<!--添加Wen  -->
+	<insert id="insertWen" parameterType="Wen">
+		insert into tb_wen(uid,gid,wen) values(#{uid},#{gid},#{wen})
+	</insert>
+	
+	
+	<update id="updateWen" parameterType="Wen">
+    update tb_user
+    set username = #{username,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      birth=#{birth},  
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=DATE}
+    where uid = #{uid}
+  </update>
 </mapper>

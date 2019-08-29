@@ -1,4 +1,5 @@
 package com.lanqiao.service;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,19 @@ import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.lanqiao.domain.Commodity;
+import com.lanqiao.domain.TbUser;
+import com.lanqiao.domain.Wen;
 import com.lanqiao.mapper.JayceMapper;
+import com.lanqiao.mapper.TbUserMapper;
 import com.lanqiao.service.serviceImpl.*;
 @Service
 public class jayce implements Ijayce{
 	
 	@Autowired
 	private JayceMapper jcMapper;
+	
+	@Autowired
+	private TbUserMapper userMapper;
 
 	@Override   //随机发送验证码
 	public String SendRandomCode(String phone,String code) {
@@ -42,7 +49,7 @@ public class jayce implements Ijayce{
         try {
             CommonResponse response = client.getCommonResponse(request);
             data=response.getData();
-            System.out.println(response.getData());
+            System.out.println(data);
         } catch (ServerException e) {
     //        e.printStackTrace();
             return "false";
@@ -83,5 +90,39 @@ public class jayce implements Ijayce{
 		List list = jcMapper.SearchSameCom(a[0]);
 		list.addAll(jcMapper.SearchSameCom(a[1]));
 		return list;
+	}
+	
+	
+	@Override
+	public List<Commodity> SelectAllCom(){
+		return jcMapper.SelectAllCom();
+	}
+	
+	@Override
+	public List<TbUser> compute(){
+		List<TbUser> listu = userMapper.selectAll();
+		List<Commodity> listc = jcMapper.SelectAllCom();
+		for(TbUser u:listu){
+			for(Commodity c:listc){
+				List<Wen> l = jcMapper.SearchWen(u.getUid());
+				int i=0;
+				for(Wen w:l){
+					if(c.getGid()==w.getGid()){
+						i=w.getWen();
+					}
+				}
+				u.getWen().add(i);
+			}
+		}
+		return listu;
+	}
+	
+	
+	public void browse(int uid,int gid){
+		Wen w = new Wen(uid, gid,0);
+		w = jcMapper.SearchWenByWen(w);
+		if(w.getWen()==0){
+			w.setWen(1);
+		}
 	}
 }

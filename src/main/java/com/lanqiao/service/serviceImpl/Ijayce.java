@@ -3,6 +3,7 @@ package com.lanqiao.service.serviceImpl;
 import java.util.List;
 
 import com.lanqiao.domain.Commodity;
+import com.lanqiao.domain.TbUser;
 
 public interface Ijayce {
 	public String SendRandomCode(String phone,String code);
@@ -17,4 +18,8 @@ public interface Ijayce {
 	public List<Commodity> SearchByName(String gname);
 	
 	public List<Commodity> SearchILike(int uid);
+	
+	public List<TbUser> compute();
+	
+	public List<Commodity> SelectAllCom();
 }
