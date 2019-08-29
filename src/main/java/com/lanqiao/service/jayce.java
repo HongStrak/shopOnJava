@@ -117,12 +117,17 @@ public class jayce implements Ijayce{
 		return listu;
 	}
 	
-	
+	@Override
 	public void browse(int uid,int gid){
 		Wen w = new Wen(uid, gid,0);
 		w = jcMapper.SearchWenByWen(w);
-		if(w.getWen()==0){
-			w.setWen(1);
+		if(w==null){
+			jcMapper.insertWen(new Wen(uid,gid,1));
+		}else{
+			if(w.getWen()==0){
+				w.setWen(1);
+			}
 		}
+		
 	}
 }

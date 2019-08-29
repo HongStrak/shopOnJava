@@ -103,8 +103,8 @@ public class IntroductionController {
 	}
 	
 	@PostMapping("/fun09")
-	public void fun09(){
-		
+	public void fun09(int uid,int gid){
+		jayce.browse(uid, gid);
 	}
 
 }

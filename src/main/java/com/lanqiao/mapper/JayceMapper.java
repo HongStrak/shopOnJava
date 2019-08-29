@@ -26,4 +26,6 @@ public interface JayceMapper {
 	public void insertWen(Wen wen);
 	
 	public Wen SearchWenByWen(Wen wen);
+	
+	public void updateWen(Wen wen);
 }

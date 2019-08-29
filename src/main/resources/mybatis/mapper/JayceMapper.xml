@@ -64,14 +64,9 @@
 	
 	
 	<update id="updateWen" parameterType="Wen">
-    update tb_user
-    set username = #{username,jdbcType=VARCHAR},
-      realname = #{realname,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=CHAR},
-      birth=#{birth},  
-      phone = #{phone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      birth = #{birth,jdbcType=DATE}
-    where uid = #{uid}
+    update tb_wen
+    set 
+      wen = #{wen}
+    where uid = #{uid} and gid = #{gid}
   </update>
 </mapper>
