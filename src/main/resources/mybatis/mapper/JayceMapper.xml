@@ -69,4 +69,5 @@
       wen = #{wen}
     where uid = #{uid} and gid = #{gid}
   </update>
+
 </mapper>

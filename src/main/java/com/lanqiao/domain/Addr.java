@@ -17,6 +17,7 @@ public class Addr {
 	    private String xian;
 	    private String detail;
 	    
+	    
 	    public String getDetail() {
 			return detail;
 		}

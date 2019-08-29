@@ -13,7 +13,8 @@ public interface TbUserMapper {
 
     int insert(TbUser record);
 
-    public TbUser selectByPrimaryKey(TbUser record);
+    public TbUser  selectByPrimaryKey(TbUser tbuser);
+    
     public TbUser select(TbUser record);
 
     List<TbUser> selectAll();

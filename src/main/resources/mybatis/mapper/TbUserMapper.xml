@@ -8,7 +8,7 @@
     <result column="sex" jdbcType="CHAR" property="sex" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="isSell" jdbcType="CHAR" property="issell" />
+    <result column="isSell" jdbcType="CHAR" property="isSell" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="birth" jdbcType="DATE" property="birth" />
   </resultMap>
@@ -25,21 +25,25 @@
       #{isseller,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{birth,jdbcType=DATE})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.lanqiao.domain.TbUser">
-    update tb_user
+    update tb_user 
     set username = #{username,jdbcType=VARCHAR},
       realname = #{realname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=CHAR},
       birth=#{birth},  
       phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
-      birth = #{birth,jdbcType=DATE}
+      birth = #{birth,jdbcType=DATE} 
     where uid = #{uid}
   </update>
   <select id="selectByPrimaryKey" parameterType="com.lanqiao.domain.TbUser" resultMap="BaseResultMap">
- select uid, username, realname, sex, password, phone, isSell, email, birth,image
+ select uid, username, realname, sex, password, phone, isSell, email, birth,image  
+    from tb_user 
+    where username=#{username}  
+    and password=#{password}
+     <!-- select uid, username, password, realname,sex,phone,isSell,email,birth,image  
     from tb_user
     where username=#{username}
-    and password=#{password}
+    and password=#{password} -->
   </select>
    <select id="select" parameterType="com.lanqiao.domain.TbUser" resultMap="BaseResultMap">
     select uid, username, realname, sex, password, phone, isSeller, email, birth,image
@@ -52,3 +56,9 @@
     from tb_user
   </select>
 </mapper>
+<!--   <select id="selectByPrimaryKey"  parameterType="com.lanqiao.domain.TbUser"   resultType="com.lanqiao.domain.TbUser">
+ select uid, username, password, realname,sex,phone,isSell,email,birth,image 
+    from tb_user
+    where username=#{username}
+    and password=#{password}
+  </select> -->

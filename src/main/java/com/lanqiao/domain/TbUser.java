@@ -16,22 +16,31 @@ public class TbUser {
 
     private String phone;
 
-    private String issell;
+    private String isSell;
     private String email;
     private String birth;
     private String image;
     
-    private List Wen;
 
-	public List getWen() {
+    
+    public TbUser() {
+		super();
+	}
+
+	
+
+    private List<Integer> Wen;
+
+	public List<Integer> getWen() {
 		return Wen;
 	}
     
-	public void setWen(List wen) {
+	public void setWen(List<Integer> wen) {
 		Wen = wen;
 	}
 	
     public String getImage() {
+
 		return image;
 	}
 
@@ -54,9 +63,6 @@ public class TbUser {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	
-
 
 
 	public Integer getUid() {
@@ -107,12 +113,21 @@ public class TbUser {
         this.phone = phone == null ? null : phone.trim();
     }
 
-	public String getIssell() {
-		return issell;
+	
+
+	public String getIsSell() {
+		return isSell;
 	}
 
-	public void setIssell(String issell) {
-		this.issell = issell;
+	public void setIsSell(String isSell) {
+		this.isSell = isSell;
+	}
+
+	@Override
+	public String toString() {
+		return "TbUser [uid=" + uid + ", username=" + username + ", realname=" + realname + ", sex=" + sex
+				+ ", password=" + password + ", phone=" + phone + ", isSell=" + isSell + ", email=" + email + ", birth="
+				+ birth + ", image=" + image + "]";
 	}
     
 

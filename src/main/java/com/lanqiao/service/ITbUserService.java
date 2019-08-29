@@ -1,5 +1,7 @@
 package com.lanqiao.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.lanqiao.domain.TbUser;
@@ -7,8 +9,17 @@ import com.lanqiao.domain.TbUser;
 
 
 public interface ITbUserService {
-	 public TbUser select(TbUser record);
-	 public int insert(TbUser record);
-	 public TbUser selectByPrimaryKey(TbUser record);
-	 public int updateByPrimaryKey(TbUser record);
+	
+	
+	int deleteByPrimaryKey(Integer uid);
+
+    int insert(TbUser record);
+
+    public TbUser selectByPrimaryKey(TbUser tbuser);
+    
+    public TbUser select(TbUser record);
+
+    List<TbUser> selectAll();
+
+    public int updateByPrimaryKey(TbUser record);
 }

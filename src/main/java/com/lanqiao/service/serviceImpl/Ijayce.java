@@ -23,5 +23,10 @@ public interface Ijayce {
 	
 	public List<Commodity> SelectAllCom();
 	
+
 	public void browse(int uid,int gid);
+
+	public void userCF();
+
 }
+

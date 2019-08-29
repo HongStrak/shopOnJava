@@ -60,4 +60,12 @@ public class Address {
     public void setTel(String tel) {
         this.tel = tel == null ? null : tel.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", uid=" + uid + ", address=" + address + ", isDefaultAddr=" + isDefaultAddr
+				+ ", receiver=" + receiver + ", tel=" + tel + "]";
+	}
+    
+    
 }

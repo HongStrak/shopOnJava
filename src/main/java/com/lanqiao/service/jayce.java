@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aliyuncs.CommonRequest;
 import com.aliyuncs.CommonResponse;
@@ -129,5 +130,59 @@ public class jayce implements Ijayce{
 			}
 		}
 		
+	}
+	
+	public void userCF() {
+		//计算余弦相似度，求出相似矩阵
+				//double $cos = 0.9;
+		
+		List<TbUser> users = compute();
+		int men = users.size();
+		List<Commodity> comms = SelectAllCom();
+		int shops = comms.size();
+		int grade[][] = new int[men][shops];
+		for (TbUser user : users) {
+			Object[] array = user.getWen().toArray();
+			System.out.println(array);
+		}
+	/*	int grade[][] = {
+				{1,0,5,3,0,0},
+				{0,3,0,0,3,0},
+				{5,0,0,0,0,10},
+				{10,0,0,0,5,0},
+				{0,0,5,1,0,0},
+				{0,5,3,0,0,1}
+		};
+		
+				
+				double $cos[][] = new double[men][shops];
+				for(int k=0; k<men;k++) {
+					for(int j=0; j< men;j++) {
+						double $x0 = 0;
+						double $x1 = 0;
+						int $y[] = new int[men];
+						for(int i=0; i<shops; i++) {
+							$y[j] = $y[j] + grade[k][i]*grade[j][i]; 
+							$x0 = $x0 +grade[k][i]*grade[k][i]; 
+							$x1 = $x1 +grade[j][i]*grade[j][i]; 
+						}
+						$cos[k][j] = (double)Math.round(($y[j]/(Math.sqrt($x0)*Math.sqrt($x1)))*100)/100;
+						
+					}
+				}
+				
+				//推荐列表 = 相似度矩阵 X 评分矩阵
+				double recom[][] = new double[men][shops];
+				 int y = men;
+			        int x = shops;
+			        int c[][] = new int[y][x];
+			        for (int i = 0; i < men; i++)
+			            for (int j = 0; j < shops; j++)
+			                //c矩阵的第i行第j列所对应的数值，等于a矩阵的第i行分别乘以b矩阵的第j列之和
+			                for (int k = 0; k < shops; k++)
+			                	recom[i][j] += (double)Math.round($cos[i][k] * grade[k][j]*10)/10;
+
+
+			        System.out.println("asd");*/
 	}
 }
