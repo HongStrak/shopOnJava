@@ -35,7 +35,9 @@ public class AppTest {
     
 	@Test
 	public void test1() {
-		jayce.userCF();
+		String aa ="hello|world";
+		String[] split = aa.split("\\|");
+		System.out.println(split[0]+"--->"+split[1]);
 
 
 	}

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alipay.api.AlipayApiException;
@@ -25,7 +24,10 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.lanqiao.config.AlipayConfig;
-import com.lanqiao.service.IOrderFormService;
+import com.lanqiao.domain.OrderForm;
+import com.lanqiao.domain.Wen;
+import com.lanqiao.mapper.JayceMapper;
+import com.lanqiao.service.serviceImpl.Ijayce;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,6 +47,9 @@ public class AlipayController {
 
 	@Autowired
 	private RedisTemplate redisTemplate;
+	
+	@Autowired
+	private JayceMapper jayce;
 	
 	@RequestMapping("/pay")
 	public void pay(HttpServletRequest httpRequest, HttpServletResponse httpResponse)
@@ -137,9 +142,18 @@ public class AlipayController {
 				String[] keys = body.split("_");
 				if(keys.length > 1) {
 					for (int i=1;i<keys.length;i++) {
+						OrderForm order = (OrderForm)redisTemplate.opsForHash().get(keys[0], keys[i]);
+						Integer gid = order.getShoppingCart().getGid();
 						redisTemplate.opsForHash().delete(keys[0], keys[i]);
+						jayce.updateWen(new Wen(Integer.parseInt(keys[0]), gid, 5));
+					}
+				}else {
+					String[] keys2 = body.split("\\|");
+					if(keys2.length>1) {
+						jayce.updateWen(new Wen(Integer.parseInt(keys2[0]), Integer.parseInt(keys2[1]), 5));
 					}
 				}
+				
 			}
 
 		} else {// 验证失败
